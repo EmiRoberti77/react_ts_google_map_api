@@ -12,6 +12,7 @@ export interface LatLng {
 interface AddressesProps {}
 
 const Addresses: FC<AddressesProps> = (): JSX.Element => {
+  console.log("onload");
   const [key] = useState<string>(process.env.REACT_APP_G_API_KEY!);
   const searchBox = useRef<google.maps.places.SearchBox | null>(null);
   const [address, setAddress] = useState<string>("");
@@ -21,6 +22,7 @@ const Addresses: FC<AddressesProps> = (): JSX.Element => {
   });
 
   const onLoad = (searchBoxInstance: google.maps.places.SearchBox) => {
+    console.log("onload");
     searchBox.current = searchBoxInstance;
   };
 
