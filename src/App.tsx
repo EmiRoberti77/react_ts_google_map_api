@@ -1,7 +1,7 @@
 import "./App.css";
-import Map from "./components/Map";
+import GMap from "./components/GMap";
 function App() {
-  return <Map />;
+  return <GMap />;
 }
 
 export default App;
