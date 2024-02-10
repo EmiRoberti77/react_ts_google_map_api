@@ -2,14 +2,14 @@
 
 type RawTree = [string, number, number];
 
-export interface Tree {
+export interface Point {
   key: string;
-  name: string;
   lat: number;
   lng: number;
+  altitude: number;
 }
 
-const trees: RawTree[] = [
+export const trees: RawTree[] = [
   ["Ash, green", 43.6495364521731, -79.41618733111581],
   ["Birch, white", 43.8037189558964, -79.3545349538418],
   ["Maple, Manitoba", 43.6776251576906, -79.2760802497644],
@@ -500,11 +500,11 @@ const trees: RawTree[] = [
   ["Horsechestnut", 43.7141250143013, -79.4121426520126],
 ];
 
-const formatted: Tree[] = trees.map(([name, lat, lng]) => ({
-  name,
+const treeList: Point[] = trees.map(([name, lat, lng]) => ({
+  altitude: 0,
   lat,
   lng,
   key: JSON.stringify({ name, lat, lng }),
 }));
 
-export default formatted;
+export default treeList;

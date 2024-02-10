@@ -1,8 +1,8 @@
 import "./App.css";
-import GMap from "./components/GMap";
+import GMapMarkers from "./components/GMapMarkers";
 
 function App() {
-  return <GMap />;
+  return <GMapMarkers />;
 }
 
 export default App;
