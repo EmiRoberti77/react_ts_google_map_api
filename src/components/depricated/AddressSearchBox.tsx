@@ -1,20 +1,14 @@
 import React, { FC, useRef } from "react";
-import {
-  StandaloneSearchBox,
-  LoadScript,
-  GoogleMap,
-} from "@react-google-maps/api";
+import { StandaloneSearchBox, LoadScript } from "@react-google-maps/api";
 
 const AddressSearchBox: FC = () => {
   const searchBoxRef = useRef<any>(null);
 
   function handleLoad() {
-    console.log("handleLoad");
     searchBoxRef.current = searchBoxRef;
   }
 
   function handlePlacesChanged() {
-    console.log("handlePlacesChanged");
     if (searchBoxRef.current) {
       console.log(searchBoxRef.current);
       const places = searchBoxRef.current.getPlaces();
@@ -25,7 +19,7 @@ const AddressSearchBox: FC = () => {
   return (
     <LoadScript
       id="script-loader"
-      googleMapsApiKey="AIzaSyAyEvPBTrQCv90mb0Cw0xIvzCXs7SrgQt8"
+      googleMapsApiKey=""
       version="weekly"
       loadingElement={<div style={{ height: "100%" }} />}
       libraries={["places", "drawing", "maps"]}

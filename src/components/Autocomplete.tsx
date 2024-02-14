@@ -19,6 +19,7 @@ import {
   Pin,
   InfoWindow,
 } from "@vis.gl/react-google-maps";
+import "./css/autocomplete.css";
 
 export default function Places() {
   const { isLoaded } = useLoadScript({
@@ -48,6 +49,7 @@ const EMap: FC = () => {
 
   return (
     <>
+      <div className="header">Find your address</div>
       <div className="places-container">
         <PlacesAutocomplete
           setMapPoint={setMapPoint}
@@ -57,7 +59,7 @@ const EMap: FC = () => {
 
       <APIProvider apiKey={process.env.REACT_APP_G_API_KEY!}>
         <div style={{ height: "100vh", width: "100%" }}>
-          <Map zoom={10} center={mapPoint} mapId={"2b436a3f2f203164"}>
+          <Map zoom={20} center={mapPoint} mapId={"2b436a3f2f203164"}>
             <AdvancedMarker
               position={mapPoint}
               onClick={() => {
