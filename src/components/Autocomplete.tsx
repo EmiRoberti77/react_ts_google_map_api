@@ -27,25 +27,39 @@ export default function Places() {
   });
 
   if (!isLoaded) return <div>Loading . . .</div>;
-  return <EmiMap />;
+  return <EMap />;
 }
 
-const EmiMap: FC = () => {
-  const [selected, setSelected] = useState({ lat: 43.45, lng: -80.49 });
+interface MapPoint {
+  lat: number;
+  lng: number;
+}
+
+const initPosition: MapPoint = {
+  lat: 43.45,
+  lng: -80.49,
+};
+
+const EMap: FC = () => {
+  const [mapPoint, setMapPoint] = useState<MapPoint>(initPosition);
+  const [mapAddress, setMapAddress] = useState<string | undefined>(undefined);
   const [open, setOpen] = useState(false);
-  useEffect(() => {}, [selected]);
+  useEffect(() => {}, [mapPoint]);
 
   return (
     <>
       <div className="places-container">
-        <PlacesAutocomplete setSelected={setSelected} />
+        <PlacesAutocomplete
+          setMapPoint={setMapPoint}
+          setMapAddress={setMapAddress}
+        />
       </div>
 
       <APIProvider apiKey={process.env.REACT_APP_G_API_KEY!}>
         <div style={{ height: "100vh", width: "100%" }}>
-          <Map zoom={10} center={selected} mapId={"2b436a3f2f203164"}>
+          <Map zoom={10} center={mapPoint} mapId={"2b436a3f2f203164"}>
             <AdvancedMarker
-              position={selected}
+              position={mapPoint}
               onClick={() => {
                 setOpen(true);
               }}
@@ -58,12 +72,12 @@ const EmiMap: FC = () => {
             </AdvancedMarker>
             {open && (
               <InfoWindow
-                position={selected}
+                position={mapPoint}
                 onCloseClick={() => {
                   setOpen(false);
                 }}
               >
-                <p>I am in Humberg</p>
+                <p>{mapAddress}</p>
               </InfoWindow>
             )}
           </Map>
@@ -73,7 +87,14 @@ const EmiMap: FC = () => {
   );
 };
 
-const PlacesAutocomplete = ({ setSelected }: any) => {
+interface PlacesAutocompleteProps {
+  setMapPoint: any;
+  setMapAddress: React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+const PlacesAutocomplete: FC<PlacesAutocompleteProps> = ({
+  setMapPoint,
+  setMapAddress,
+}: any) => {
   const {
     ready,
     value,
@@ -84,12 +105,14 @@ const PlacesAutocomplete = ({ setSelected }: any) => {
 
   const handleSelect = async (address: any) => {
     setValue(address, false);
+    setMapAddress(address);
+
     clearSuggestions();
 
     const results = await getGeocode({ address });
     const { lat, lng } = await getLatLng(results[0]);
-    console.log(lat, lng);
-    setSelected({ lat, lng });
+    console.log(address, lat, lng);
+    setMapPoint({ lat, lng });
   };
 
   return (
