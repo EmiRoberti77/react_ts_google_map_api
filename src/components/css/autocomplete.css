@@ -1,0 +1,17 @@
+.places-container {
+  display: flex;
+  justify-content: center;
+  background-color: #b3ffb3;
+}
+
+.header {
+  background-color: #b3ffb3;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  font-size: large;
+  padding-top: 20px;
+}

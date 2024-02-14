@@ -1,7 +1,8 @@
 import "./App.css";
-import Map from "./components/Map";
+import Places from "./components/Autocomplete";
+
 function App() {
-  return <Map />;
+  return <Places />;
 }
 
 export default App;
